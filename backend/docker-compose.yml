@@ -1,28 +1,33 @@
 version: '3'
 
-services:
-  laravel-app:
-    build: ../devops
-    ports:
-      - "8080:80"
-    volumes:
-      - ./:/usr/share/nginx
-    networks:
-      - app-netowrk
+# Named volumes
+volumes:
+  # MySQL Data
+  co-sales-mysql-data:
+    driver: local
 
-  mysql-app:
-    image: mysql:5.7.22
-    container_name: co-sales-mysql
-    ports:
-      - "3308:3306"
+services:
+  # MySQL (5.7)
+  mysql:
+    image: ambientum/mysql:5.7
+    container_name: co-sales
     volumes:
-      -  ../devops/database/dbdata:/var/lib/mysql
+      - co-sales-mysql-data:/var/lib/mysql
+    ports:
+      - "3309:3306"
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: co_sales
-    networks:
-      - app-netowrk
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
 
-networks:
-  app-netowrk:
-    driver: bridge
+  # PHP (with Caddy)
+  app:
+    image: ambientum/php:7.1-caddy
+    container_name: co-sales-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "85:8080"
+    links:
+      - mysql
