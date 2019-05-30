@@ -19,7 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('enterprise_name');
             $table->string('contact_name')->nullable();
             $table->string('email')->index()->nullable();
-            $table->unsignedInteger('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->date('contact_date');
             $table->date('validate_date');
 
