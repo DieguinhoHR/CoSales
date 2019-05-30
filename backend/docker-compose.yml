@@ -12,13 +12,14 @@ services:
 
   mysql-app:
     image: mysql:5.7.22
+    container_name: co-sales-mysql
     ports:
       - "3308:3306"
     volumes:
       -  ../devops/database/dbdata:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: co_sales
       MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: co_sales
     networks:
       - app-netowrk
 
