@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contact;
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -14,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return Contact::all();
+        return Contact::orderBy('created_at', 'DESC')->get();
     }
 
     public function show($id)
@@ -22,25 +23,25 @@ class ContactController extends Controller
         return Contact::find($id);
     }
 
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
         return Contact::create($request->all());
     }
 
-    public function update(Request $request, $id)
+    public function update(ContactRequest $request, $id)
     {
-        $article = Contact::findOrFail($id);
+        $contact = Contact::findOrFail($id);
 
-        $article->update($request->all());
+        $contact->update($request->all());
 
-        return $article;
+        return $contact;
     }
 
-    public function delete(Request $request, $id)
+    public function destroy($id)
     {
-        $article = Contact::findOrFail($id);
+        $contact = Contact::findOrFail($id);
 
-        $article->delete();
+        $contact->delete();
 
         return 204;
     }

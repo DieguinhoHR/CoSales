@@ -26,7 +26,7 @@ class ContactRequest extends FormRequest
         return [
             'salesman_name' => 'required|min:5',
             'contact_name' => 'required|min:5',
-            'phone' => 'required'
+            'phone' => 'required',
             'email' => 'required'
         ];
     }
