@@ -169,8 +169,9 @@ export default {
 
     save () {
       const actualDate = moment().format('L');
+      const contactDate = moment(this.contact.contactDate).format('MM/DD/YYYY')
 
-      if (this.contact.contactDate > actualDate) {
+      if (contactDate > actualDate) {
         alert('A data de contato não pode ser maior que a data de hoje')
 
         return
