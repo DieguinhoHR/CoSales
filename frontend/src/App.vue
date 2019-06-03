@@ -173,7 +173,6 @@ export default {
 
       if (contactDate > actualDate) {
         alert('A data de contato não pode ser maior que a data de hoje')
-
         return
       }
 
